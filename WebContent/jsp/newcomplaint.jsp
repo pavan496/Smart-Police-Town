@@ -50,7 +50,11 @@
 
 					});
 		</script>
-
+		<style type="text/css">
+.ui-block-a, .ui-block-b, .ui-block-c {
+	padding-right: 10px;
+}
+</style>
 		<div data-role="header" data-add-back-btn="true">
 			<button id="btnSave"
 				class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check">Save</button>
@@ -59,8 +63,38 @@
 		<div data-role="main" class="ui-content">
 			<form id="compForm">
 				<input type="hidden" id="complaintType" name="complaintType"></input>
-				<label for="summary">Summary:</label>
-				<textarea name="summary" id="summary"></textarea>
+				<h2>Incident Information</h2>
+				<div class="ui-grid-b ui-responsive">
+					<div class="ui-block-a">
+
+						<label for="incidentDate">Incident Date:</label> <input
+							id="incidentDate" name="incidentDate"></input>
+					</div>
+					<div class="ui-block-b">
+						<label for="incidentTime">Incident Time:</label> <input
+							id="incidentTime" name="incidentTime"></input>
+					</div>
+					<div class="ui-block-c">
+						<label for="incidentLocation">Incident Location:</label> <input
+							id="incidentLocation" name="incidentLocation"></input>
+					</div>
+				</div>
+				<div data-inline="true">
+					<label for="summary">Summary:</label>
+					<textarea name="summary" id="summary"></textarea>
+				</div>
+				<h2>Reporter Information</h2>
+				<div class="ui-grid-a ui-responsive">
+					<div class="ui-block-a">
+						<label for="reportedBy">Name:</label> <input type="text"
+							id="reportedBy" name="reportedBy"></input>
+					</div>
+					<div class="ui-block-b">
+						<label for="contactNo">Contact No:</label> <input type="text"
+							id="contactNo" name="contactNo"></input>
+					</div>
+				</div>
+
 			</form>
 
 		</div>
