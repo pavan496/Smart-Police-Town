@@ -12,26 +12,32 @@
 	type="text/css"></link>
 <script type="text/javascript" src="../scripts/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="../scripts/jquery.mobile-1.4.5.js"></script>
-
+<script type="text/javascript" src="../scripts/jquery.validate.min.js"></script>
+<script type="text/javascript"
+	src="../scripts/additional-methods.min.js"></script>
 </head>
 <body>
-	<div data-role="page" id="complaintTypes">
-		<div data-role="header">
+	<div data-role="page" id="complaintTypes" data-transition="slide">
+		<div data-role="header" data-position="fixed">
 			<a href="../"
 				class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-home">Home</a>
-			<h1>New Complaint</h1>
+			<h1>Complaint Type</h1>
+			<script type="text/javascript">
+				function updateComplaintType(a) {
+					$('#complaintType').val(a);
+				}
+			</script>
 		</div>
 		<div data-role="main" class="ui-content">
 			<ul data-role="listview" data-filter="true"
 				data-filter-placeholder="Search Complaint Types" data-inset="true">
 				<%
 					ComplaintTypesUtil ctUtil = new ComplaintTypesUtil();
-					List<ComplaintTypes> allComplaintTypes = ctUtil.getAllComplaintTypes();
-					
+					List<ComplaintTypes> allComplaintTypes = ctUtil.getAllComplaintTypes();					
 					for(ComplaintTypes type : allComplaintTypes){
 				%>
 				<li><a href="#complain"
-					value="<%=type.getComplaintTypeCode()%>"><%=type.getComplaintTypeName()%></a></li>
+					onclick="updateComplaintType('<%=type.getComplaintTypeCode()%>')"><%=type.getComplaintTypeName()%></a></li>
 				<%
 					}
 				%>
@@ -39,26 +45,45 @@
 			</ul>
 		</div>
 	</div>
-	<div data-role="page" id="complain">
-		<script type="text/javascript">
-			$("#btnSave").click(
-					function() {
-						$.post("../register-complaint",
-								$("#compForm").serialize()).done(function() {
-							alert("Hogaya");
-						});
+	<div data-role="page" id="complain" data-transition="slide">
+		<div data-role="header" data-add-back-btn="true" data-position="fixed">
+			<button id="btnSave"
+				class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check">Save</button>
+			<h1>Complaint Info</h1>
+			<script type="text/javascript">
+				$("#btnSave").click(
+						function() {
+							$("#compForm").validate({
+								rules : {
+									contactNo : {
+										number : true
+									}
+								}
+							});
+							if ($("#compForm").valid()) {
+								$.ajax({
+									type : "POST",
+									url : "../register-complaint",
+									data : $("#compForm").serialize(),
+									dataType : "json",
+									success : function(d) {
+										$("#incId").html(d.incidentid);
+										$.mobile.pageContainer.pagecontainer(
+												"change", "#reported");
+									},
+									error : function(e) {
+										alert("Transaction Failed");
+									}
 
-					});
-		</script>
-		<style type="text/css">
+								});
+							}
+						});
+			</script>
+			<style type="text/css">
 .ui-block-a, .ui-block-b, .ui-block-c {
 	padding-right: 10px;
 }
 </style>
-		<div data-role="header" data-add-back-btn="true">
-			<button id="btnSave"
-				class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check">Save</button>
-			<h1>New Complaint</h1>
 		</div>
 		<div data-role="main" class="ui-content">
 			<form id="compForm">
@@ -66,37 +91,56 @@
 				<h2>Incident Information</h2>
 				<div class="ui-grid-b ui-responsive">
 					<div class="ui-block-a">
-
-						<label for="incidentDate">Incident Date:</label> <input
-							id="incidentDate" name="incidentDate"></input>
+						<label for="incidentLocation">Incident Location <font
+							color="red">*</font></label> <input id="incidentLocation"
+							name="incidentLocation" required minlength="2" maxlength="50"></input>
 					</div>
 					<div class="ui-block-b">
-						<label for="incidentTime">Incident Time:</label> <input
-							id="incidentTime" name="incidentTime"></input>
+						<label for="incidentDate">Incident Date</label> <input
+							id="incidentDate" name="incidentDate"></input>
 					</div>
 					<div class="ui-block-c">
-						<label for="incidentLocation">Incident Location:</label> <input
-							id="incidentLocation" name="incidentLocation"></input>
+						<label for="incidentTime">Incident Time</label> <input
+							id="incidentTime" name="incidentTime"></input>
 					</div>
 				</div>
 				<div data-inline="true">
-					<label for="summary">Summary:</label>
-					<textarea name="summary" id="summary"></textarea>
+					<label for="summary">Summary <font color="red">*</font></label>
+					<textarea name="summary" id="summary" required minlength="2" rows="5" 
+						maxlength="1000"></textarea>
 				</div>
 				<h2>Reporter Information</h2>
-				<div class="ui-grid-a ui-responsive">
+				<div class="ui-grid-b ui-responsive">
 					<div class="ui-block-a">
-						<label for="reportedBy">Name:</label> <input type="text"
-							id="reportedBy" name="reportedBy"></input>
+						<label for="reportedBy">Name <font color="red">*</font></label> <input
+							type="text" id="reportedBy" name="reportedBy" required
+							minlength="2" maxlength="50"></input>
 					</div>
 					<div class="ui-block-b">
-						<label for="contactNo">Contact No:</label> <input type="text"
-							id="contactNo" name="contactNo"></input>
+						<label for="contactNo">Contact No <font color="red">*</font></label>
+						<input type="text" id="contactNo" name="contactNo" required
+							maxlength="10" minlength="5"></input>
+					</div>
+					<div class="ui-block-c">
+						<label for="emailAddress">Email Address</label> <input
+							type="email" id="emailAddress" name="emailAddress"
+							minlength="2" maxlength="50"></input>
 					</div>
 				</div>
-
 			</form>
+		</div>
+	</div>
+	<div data-role="page" id="reported" data-transition="slide">
+		<div data-role="header" data-position="fixed">
+			<a href="../"
+				class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-home">Home</a>
+			<h1>Complaint Registered</h1>
 
+		</div>
+		<div data-role="main" class="ui-content" style="text-align: center">
+			<span>Your complaint has been registered. Please note the
+				following incident number for further reference.</span>
+			<h1 id="incId"></h1>
 		</div>
 	</div>
 </body>

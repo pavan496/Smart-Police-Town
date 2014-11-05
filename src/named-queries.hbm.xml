@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<query name="HQL_GET_COMPLAINT_BY_INCIDENT" read-only="true">from
+		Complaints c where c.incidentId = :IncidentId
+	</query>
+	<query name="HQL_GET_LATEST_COMPLAINTS" read-only="true">FROM Complaints
+		ORDER BY incidentTime DESC
+	</query>
+</hibernate-mapping>

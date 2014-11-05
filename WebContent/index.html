@@ -8,6 +8,8 @@
 	type="text/css"></link>
 <script type="text/javascript" src="scripts/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="scripts/jquery.mobile-1.4.5.js"></script>
+<script type="text/javascript" src="scripts/jquery.validate.min.js"></script>
+<script type="text/javascript" src="scripts/additional-methods.min.js"></script>
 <script type="text/javascript">
 	
 </script>
@@ -15,23 +17,20 @@
 <body>
 
 	<div data-role="page" id="home">
-		<div data-role="header">
+		<div data-role="header" data-position="fixed">
 			<h1>Smart Police Town</h1>
-			<button
-				class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-power">Logout</button>
 			<div data-role="navbar">
 				<ul>
 					<li><a href="jsp/newcomplaint.jsp" data-icon="edit"
 						rel="external">Report New Complaint </a></li>
-					<li><a href="jsp/search.jsp" data-icon="bars">View
+					<li><a href="jsp/complaints.jsp" data-icon="bars">View
 							Complaints</a></li>
-					<li><a href="jsp/detail.jsp" data-icon="info">Complaint
+					<li><a href="jsp/search.jsp" data-icon="info">Complaint
 							Detail</a></li>
 				</ul>
 			</div>
 		</div>
 		<div role="main" class="ui-content"></div>
 	</div>
-
 </body>
 </html>

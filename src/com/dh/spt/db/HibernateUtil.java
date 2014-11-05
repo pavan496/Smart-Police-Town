@@ -5,13 +5,16 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
-import com.dh.spt.db.model.ComplaintTypes;
-
+/**
+ * Utility class for any common hibernate activities
+ * 
+ * @author pavan
+ *
+ */
 public class HibernateUtil {
 
 	public static SessionFactory getSessionFactory() {
-		Configuration configuration = new Configuration();
-		configuration.addAnnotatedClass(ComplaintTypes.class);
+		Configuration configuration = new Configuration();		
 		configuration.configure();
 		StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
 				.applySettings(configuration.getProperties()).build();

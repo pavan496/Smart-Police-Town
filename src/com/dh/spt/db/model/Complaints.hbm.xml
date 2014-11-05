@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 5 Nov, 2014 12:22:54 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.dh.spt.db.model.Complaints" table="COMPLAINTS" catalog="SmartPoliceTown">
+        <id name="id" type="java.lang.Integer">
+            <column name="ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="complaintTypes" class="com.dh.spt.db.model.ComplaintTypes" fetch="select" lazy="false">
+            <column name="COMPLAINT_TYPE" length="20" />
+        </many-to-one>
+        <property name="incidentId" type="string" insert="false" generated="insert">
+            <column name="INCIDENT_ID" length="20" />            
+        </property>
+        <property name="incidentLocataion" type="string">
+            <column name="INCIDENT_LOCATAION" length="50" />
+        </property>
+        <property name="incidentTime" type="timestamp">
+            <column name="INCIDENT_TIME" length="0" not-null="true" />
+        </property>
+        <property name="summary" type="string">
+            <column name="SUMMARY" length="1000" />
+        </property>
+        <property name="reporterName" type="string">
+            <column name="REPORTER_NAME" length="50" />
+        </property>
+        <property name="reporterContactNo" type="string">
+            <column name="REPORTER_CONTACT_NO" length="50" />
+        </property>
+        <property name="reporterEmailAddress" type="string">
+            <column name="REPORTER_EMAIL_ADDRESS" length="100" />
+        </property>
+    </class>
+</hibernate-mapping>

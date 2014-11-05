@@ -1,6 +1,7 @@
 package com.dh.spt.servlet;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,9 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.hibernate.Session;
-
-import com.dh.spt.db.HibernateUtil;
+import com.dh.spt.db.ComplaintsUtil;
 
 @WebServlet("/register-complaint")
 public class RegisterComplaintServlet extends HttpServlet {
@@ -22,22 +21,25 @@ public class RegisterComplaintServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String summary = request.getParameter("summary");
-		System.out.println(summary);
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		String complaintType = request.getParameter("complaintType");
+		String incidentLocation = request.getParameter("incidentLocation");
+		String incidentDate = request.getParameter("incidentDate");
+		String incidentTime = request.getParameter("incidentTime");
+		String reportedBy = request.getParameter("reportedBy");
+		String contactNo = request.getParameter("contactNo");
+		String emailAddress = request.getParameter("emailAddress");
+		String incidentSummary = request.getParameter("summary");
 
-		session.beginTransaction();
+		ComplaintsUtil complaintsUtil = new ComplaintsUtil();
+		String incidentId = complaintsUtil.createNewComplaint(complaintType,
+				incidentLocation, new Date(), incidentSummary, reportedBy,
+				contactNo, emailAddress);
 
-	/*	Complaint complaint = new Complaint();
-		complaint.setSummary(summary);
+		String respStr = "{\"incidentid\":\"" + incidentId + "\"}";
 
-		session.save(complaint);
-		session.getTransaction().commit();
-*/
-		session.close();
+		response.setContentType("application/json");
 
-		response.getOutputStream().write("Fuck Yeah!!!".getBytes());
-
+		response.getOutputStream().write(respStr.getBytes());
 	}
 
 }
