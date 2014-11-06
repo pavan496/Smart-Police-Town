@@ -6,6 +6,6 @@
 		Complaints c where c.incidentId = :IncidentId
 	</query>
 	<query name="HQL_GET_LATEST_COMPLAINTS" read-only="true">FROM Complaints
-		ORDER BY incidentTime DESC
+		where reportedTime BETWEEN CURDATE()-2 AND CURDATE()+1 ORDER BY reportedTime DESC
 	</query>
 </hibernate-mapping>

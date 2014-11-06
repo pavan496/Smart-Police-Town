@@ -1,6 +1,6 @@
 package com.dh.spt.db.model;
 
-// Generated 5 Nov, 2014 12:22:54 PM by Hibernate Tools 3.4.0.CR1
+// Generated 6 Nov, 2014 1:26:37 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;

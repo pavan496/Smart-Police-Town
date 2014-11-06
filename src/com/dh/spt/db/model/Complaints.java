@@ -1,6 +1,6 @@
 package com.dh.spt.db.model;
 
-// Generated 5 Nov, 2014 12:22:54 PM by Hibernate Tools 3.4.0.CR1
+// Generated 6 Nov, 2014 1:26:37 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 
@@ -18,18 +18,22 @@ public class Complaints implements java.io.Serializable {
 	private String reporterName;
 	private String reporterContactNo;
 	private String reporterEmailAddress;
+	private Date reportedTime;
+	private String reportedLocation;
 
 	public Complaints() {
 	}
 
-	public Complaints(Date incidentTime) {
+	public Complaints(Date incidentTime, Date reportedTime) {
 		this.incidentTime = incidentTime;
+		this.reportedTime = reportedTime;
 	}
 
 	public Complaints(ComplaintTypes complaintTypes, String incidentId,
 			String incidentLocataion, Date incidentTime, String summary,
 			String reporterName, String reporterContactNo,
-			String reporterEmailAddress) {
+			String reporterEmailAddress, Date reportedTime,
+			String reportedLocation) {
 		this.complaintTypes = complaintTypes;
 		this.incidentId = incidentId;
 		this.incidentLocataion = incidentLocataion;
@@ -38,6 +42,8 @@ public class Complaints implements java.io.Serializable {
 		this.reporterName = reporterName;
 		this.reporterContactNo = reporterContactNo;
 		this.reporterEmailAddress = reporterEmailAddress;
+		this.reportedTime = reportedTime;
+		this.reportedLocation = reportedLocation;
 	}
 
 	public Integer getId() {
@@ -110,6 +116,22 @@ public class Complaints implements java.io.Serializable {
 
 	public void setReporterEmailAddress(String reporterEmailAddress) {
 		this.reporterEmailAddress = reporterEmailAddress;
+	}
+
+	public Date getReportedTime() {
+		return this.reportedTime;
+	}
+
+	public void setReportedTime(Date reportedTime) {
+		this.reportedTime = reportedTime;
+	}
+
+	public String getReportedLocation() {
+		return this.reportedLocation;
+	}
+
+	public void setReportedLocation(String reportedLocation) {
+		this.reportedLocation = reportedLocation;
 	}
 
 }

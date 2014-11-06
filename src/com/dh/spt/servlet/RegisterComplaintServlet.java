@@ -1,6 +1,8 @@
 package com.dh.spt.servlet;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -23,17 +25,30 @@ public class RegisterComplaintServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		String complaintType = request.getParameter("complaintType");
 		String incidentLocation = request.getParameter("incidentLocation");
-		String incidentDate = request.getParameter("incidentDate");
-		String incidentTime = request.getParameter("incidentTime");
+		String incidentDateStr = request.getParameter("incidentDate");
 		String reportedBy = request.getParameter("reportedBy");
 		String contactNo = request.getParameter("contactNo");
 		String emailAddress = request.getParameter("emailAddress");
 		String incidentSummary = request.getParameter("summary");
+		String reportedLocation = request.getParameter("reportedLocation");
+
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+
+		Date incidentDate;
+		try {
+			incidentDate = formatter.parse(incidentDateStr);
+		} catch (ParseException e) {
+			throw new ServletException("Invalid Date Format.");
+		}
+
+		if (incidentDate.after(new Date()))
+			throw new ServletException(
+					"Incident Date cannot be greater than today.");
 
 		ComplaintsUtil complaintsUtil = new ComplaintsUtil();
 		String incidentId = complaintsUtil.createNewComplaint(complaintType,
-				incidentLocation, new Date(), incidentSummary, reportedBy,
-				contactNo, emailAddress);
+				incidentLocation, incidentDate, incidentSummary, reportedBy,
+				contactNo, emailAddress, reportedLocation);
 
 		String respStr = "{\"incidentid\":\"" + incidentId + "\"}";
 

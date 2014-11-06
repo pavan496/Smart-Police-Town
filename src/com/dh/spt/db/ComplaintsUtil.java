@@ -29,12 +29,13 @@ public class ComplaintsUtil {
 	 * @param reporterName
 	 * @param reporterContactNo
 	 * @param reporterEmailAddress
+	 * @param reportedLocation
 	 * @return
 	 */
 	public String createNewComplaint(String complaintType,
 			String incidentLocation, Date incidentDate, String incdientSummary,
 			String reporterName, String reporterContactNo,
-			String reporterEmailAddress) {
+			String reporterEmailAddress, String reportedLocation) {
 		// Create a new session with Hibernate
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		// Initiate a transaction
@@ -51,6 +52,7 @@ public class ComplaintsUtil {
 		newComplaint.setReporterEmailAddress(reporterEmailAddress);
 		newComplaint.setReporterName(reporterName);
 		newComplaint.setSummary(incdientSummary);
+		newComplaint.setReportedLocation(reportedLocation);
 
 		// Save the complaint object
 		session.save(newComplaint);
@@ -78,12 +80,12 @@ public class ComplaintsUtil {
 		return complaint;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Complaints> getLatestComplaints() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction tx = session.beginTransaction();
 
 		Query query = session.getNamedQuery("HQL_GET_LATEST_COMPLAINTS");
-		query.setMaxResults(10);
 		List<Complaints> complaints = query.list();
 		tx.commit();
 		session.flush();

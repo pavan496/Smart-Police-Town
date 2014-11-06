@@ -36,27 +36,28 @@
 				} else {
 			%>
 
-			<table data-role="table" data-mode="reflow" class="ui-responsive">
+			<table data-role="table" data-mode="reflow" class="ui-responsive table-stroke">
 				<thead>
 					<tr>
 						<th data-priority="1">Incident Id</th>
 						<th data-priority="2">Complaint Type</th>
 						<th data-priority="3">Location</th>
-						<th data-priority="4">Date &amp; Time</th>
+						<th data-priority="4">Incident Date &amp; Time</th>
+						<th data-priority="5">Reported Date &amp; Time</th>
 					</tr>
 				</thead>
 				<tbody>
-
 					<%
 						for (Complaints complaint : complaints) {
 					%>
 					<tr>
-						<td><a
-							href="search.jsp?inc_id=<%=complaint.getIncidentId()%>"><%=complaint.getIncidentId()%></a></td>
+						<th><a rel="external"
+							href="search.jsp?inc_id=<%=complaint.getIncidentId()%>"><%=complaint.getIncidentId()%></a></th>
 						<td><%=complaint.getComplaintTypes()
 							.getComplaintTypeName()%></td>
 						<td><%=complaint.getIncidentLocataion()%></td>
 						<td><%=complaint.getIncidentTime()%></td>
+						<td><%=complaint.getReportedTime()%></td>
 					</tr>
 					<%
 						}
