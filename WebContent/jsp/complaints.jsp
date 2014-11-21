@@ -11,10 +11,7 @@
 <link rel="stylesheet" href="../styles/jquery.mobile-1.4.5.min.css"
 	type="text/css"></link>
 <script type="text/javascript" src="../scripts/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="../scripts/jquery.mobile-1.4.5.js"></script>
-<script type="text/javascript" src="../scripts/jquery.validate.min.js"></script>
-<script type="text/javascript"
-	src="../scripts/additional-methods.min.js"></script>
+<script type="text/javascript" src="../scripts/jquery.mobile-1.4.5.min.js"></script>
 </head>
 <body>
 	<div data-role="page">
