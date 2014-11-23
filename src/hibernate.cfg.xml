@@ -4,15 +4,18 @@
 "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
 	<session-factory>
-		<property name="hibernate.bytecode.use_reflection_optimizer">false</property>
 		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="hibernate.connection.password">rajesh</property>
+		<property name="hibernate.connection.password">root</property>
 		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/SmartPoliceTown</property>
 		<property name="hibernate.connection.username">root</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-		<property name="hibernate.search.autoregister_listeners">false</property>		
-		<mapping resource="named-queries.hbm.xml" />
+		<property name="hibernate.show_sql">true</property>
+		<property name="hibernate.cache.use_second_level_cache">false</property>
+		<property name="hibernate.cache.use_query_cache">false</property>
+		<property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
 		<mapping resource="com/dh/spt/db/model/Complaints.hbm.xml" />
 		<mapping resource="com/dh/spt/db/model/ComplaintTypes.hbm.xml" />
+		<mapping resource="com/dh/spt/db/model/ComplaintImages.hbm.xml" />
+		<mapping resource="named-queries.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>

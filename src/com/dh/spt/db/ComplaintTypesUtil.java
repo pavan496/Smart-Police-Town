@@ -3,7 +3,6 @@ package com.dh.spt.db;
 import java.util.List;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 
 import com.dh.spt.db.model.ComplaintTypes;
 
@@ -22,11 +21,18 @@ public class ComplaintTypesUtil {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<ComplaintTypes> getAllComplaintTypes() {
-		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		// Create a session
+		Session session = HibernateUtil.getSession();
 
-		Session session = sessionFactory.openSession();
+		// Read all complaint types available
 		List<ComplaintTypes> allComplaintTypes = session.createCriteria(
 				ComplaintTypes.class).list();
+
+		// Close session
+		session.flush();
+		session.close();
+
+		// Return complaint types
 		return allComplaintTypes;
 	}
 }

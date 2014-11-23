@@ -1,44 +1,48 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 6 Nov, 2014 1:26:38 PM by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated 22 Nov, 2014 6:09:24 PM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-	<class name="com.dh.spt.db.model.Complaints" table="COMPLAINTS"
-		catalog="SmartPoliceTown">
-		<id name="id" type="java.lang.Integer">
-			<column name="ID" />
-			<generator class="identity" />
-		</id>
-		<many-to-one name="complaintTypes" class="com.dh.spt.db.model.ComplaintTypes"
-			fetch="select" lazy="false">
-			<column name="COMPLAINT_TYPE" length="20" />
-		</many-to-one>
-		<property name="incidentId" type="string" generated="insert">
-			<column name="INCIDENT_ID" length="20" />
-		</property>
-		<property name="incidentLocataion" type="string">
-			<column name="INCIDENT_LOCATAION" length="50" />
-		</property>
-		<property name="incidentTime" type="timestamp">
-			<column name="INCIDENT_TIME" length="0" not-null="true" />
-		</property>
-		<property name="summary" type="string">
-			<column name="SUMMARY" length="1000" />
-		</property>
-		<property name="reporterName" type="string">
-			<column name="REPORTER_NAME" length="50" />
-		</property>
-		<property name="reporterContactNo" type="string">
-			<column name="REPORTER_CONTACT_NO" length="50" />
-		</property>
-		<property name="reporterEmailAddress" type="string">
-			<column name="REPORTER_EMAIL_ADDRESS" length="100" />
-		</property>
-		<property name="reportedTime" type="timestamp" generated="insert">
-			<column name="REPORTED_TIME" length="0" not-null="true" />
-		</property>
-		<property name="reportedLocation" type="string">
-			<column name="REPORTED_LOCATION" length="50" />
-		</property>
-	</class>
+    <class name="com.dh.spt.db.model.Complaints" table="COMPLAINTS" catalog="SmartPoliceTown">
+        <id name="id" type="java.lang.Integer">
+            <column name="ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="complaintTypes" class="com.dh.spt.db.model.ComplaintTypes" fetch="join" lazy="false">
+            <column name="COMPLAINT_TYPE" length="20" />
+        </many-to-one>
+        <property name="incidentId" type="string" generated="insert">
+            <column name="INCIDENT_ID" length="20" />
+        </property>
+        <property name="incidentLocataion" type="string">
+            <column name="INCIDENT_LOCATAION" length="50" />
+        </property>
+        <property name="incidentTime" type="timestamp">
+            <column name="INCIDENT_TIME" length="0" not-null="true" />
+        </property>
+        <property name="summary" type="string">
+            <column name="SUMMARY" length="1000" />
+        </property>
+        <property name="reporterName" type="string">
+            <column name="REPORTER_NAME" length="50" />
+        </property>
+        <property name="reporterContactNo" type="string">
+            <column name="REPORTER_CONTACT_NO" length="50" />
+        </property>
+        <property name="reporterEmailAddress" type="string">
+            <column name="REPORTER_EMAIL_ADDRESS" length="100" />
+        </property>
+        <property name="reportedTime" type="timestamp" generated="insert">
+            <column name="REPORTED_TIME" length="0" not-null="true" />
+        </property>
+        <property name="reportedLocation" type="string">
+            <column name="REPORTED_LOCATION" length="50" />
+        </property>
+        <set name="complaintImageses" table="COMPLAINT_IMAGES" inverse="true" lazy="true" fetch="select" cascade="all">
+            <key>
+                <column name="INCIDENT_ID" />
+            </key>
+            <one-to-many class="com.dh.spt.db.model.ComplaintImages" />
+        </set>
+    </class>
 </hibernate-mapping>

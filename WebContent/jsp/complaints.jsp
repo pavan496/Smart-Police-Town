@@ -49,7 +49,7 @@
 					%>
 					<tr>
 						<th><a rel="external"
-							href="search.jsp?inc_id=<%=complaint.getIncidentId()%>"><%=complaint.getIncidentId()%></a></th>
+							href="search.jsp?inc_id=<%=complaint.getIncidentId()%>&es"><%=complaint.getIncidentId()%></a></th>
 						<td><%=complaint.getComplaintTypes()
 							.getComplaintTypeName()%></td>
 						<td><%=complaint.getIncidentLocataion()%></td>
